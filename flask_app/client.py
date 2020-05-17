@@ -1,5 +1,6 @@
 import requests
 
+# Where the new python library/API should be implemented for use 
 
 class Movie(object):
     def __init__(self, omdb_json, detailed=False):

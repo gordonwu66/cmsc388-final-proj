@@ -34,6 +34,7 @@ def query_results(query):
     
     return render_template('query.html', results=results)
 
+
 @app.route('/movies/<movie_id>', methods=['GET', 'POST'])
 def movie_detail(movie_id):
     result = client.retrieve_movie_by_id(movie_id)
@@ -68,15 +69,7 @@ def user_detail(username):
     reviews = Review.objects(commenter=User.objects(username=username).first())
     return render_template('user_detail.html', username = username, reviews = reviews)
 
-"""
-EXTRA CREDIT: Refer to the README
-"""
-@app.route('/images/<username>')
-def images(username):
-    pass
 
-
-""" ************ User Management views ************ """
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 

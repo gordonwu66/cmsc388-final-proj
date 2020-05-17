@@ -15,6 +15,7 @@ class User(db.Document, UserMixin):
     def get_id(self):
         return self.username
 
+# Repurpose for fantasy football player reviews (not movies)
 class Review(db.Document):
 
 	commenter = db.ReferenceField(User)
@@ -22,3 +23,4 @@ class Review(db.Document):
 	date = db.StringField(required = True)
 	movie_title = db.StringField(required = True)
 	imdb_id = db.StringField(min_length=9, max_length=9, required=True)
+
