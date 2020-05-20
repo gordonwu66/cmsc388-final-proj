@@ -77,7 +77,7 @@ class PlayerClient(object):
         if resp.status_code != 200:
             raise ValueError('Search request failed, make sure proper Player_Id given')
         data = resp.json()
-        player = PlayerBase(data['data'])
+        player = PlayerBase(data)
 
         return player
 
