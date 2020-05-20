@@ -83,10 +83,10 @@ class PlayerClient(object):
         player_url = self.base_url + f'/player/{player_id}'
 
         resp = self.sess.get(player_url)
-        
+        data = resp.json()
         if resp.status_code != 200:
             raise ValueError('Search request failed, make sure proper Player_Id given')
-        data = resp.json()
+
         player = PlayerBase(data)
 
         return player

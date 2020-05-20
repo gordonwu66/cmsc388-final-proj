@@ -61,7 +61,7 @@ class PlayerClient(object):
 
     def get_players_by_team(self, tname):
         print(tname)
-        player_url = self.base_url + f'/players/{tname}'
+        player_url = self.base_url + f'players/{tname}'
 
         resp = self.sess.get(player_url)
 
@@ -69,6 +69,10 @@ class PlayerClient(object):
             raise ValueError('Search request failed, make sure proper Player_Id given')
 
         data = resp.json()
+
+        if data['Response'] == 'False':
+            print(f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+            return data 
 
         all_players_json = data['data']
 
@@ -80,13 +84,19 @@ class PlayerClient(object):
         return result
 
     def retrieve_player_by_id(self, player_id):
-        player_url = self.base_url + f'/player/{player_id}'
+        player_url = self.base_url + f'player/{player_id}'
 
         resp = self.sess.get(player_url)
-        
+
         if resp.status_code != 200:
             raise ValueError('Search request failed, make sure proper Player_Id given')
+
         data = resp.json()
+
+        if data['Response'] == 'False':
+            print(f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+            return data 
+
         player = PlayerBase(data)
 
         return player

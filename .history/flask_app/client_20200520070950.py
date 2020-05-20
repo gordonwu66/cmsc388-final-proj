@@ -70,6 +70,10 @@ class PlayerClient(object):
 
         data = resp.json()
 
+        if data['Error']:
+            print(f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+            return data 
+
         all_players_json = data['data']
 
         result = []
@@ -83,10 +87,16 @@ class PlayerClient(object):
         player_url = self.base_url + f'/player/{player_id}'
 
         resp = self.sess.get(player_url)
-        
+
         if resp.status_code != 200:
             raise ValueError('Search request failed, make sure proper Player_Id given')
+
         data = resp.json()
+
+        if data['Response'] == 'False':
+            print(f'[ERROR]: Error retrieving results: \'{data["Error"]}\' ')
+            return data 
+
         player = PlayerBase(data)
 
         return player
