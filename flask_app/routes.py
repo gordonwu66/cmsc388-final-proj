@@ -11,19 +11,20 @@ from datetime import datetime
 # local
 from . import app, bcrypt, client
 from .forms import (SearchForm, PlayerReviewForm, RegistrationForm, LoginForm,
-                             UpdateUsernameForm, UpdateProfilePicForm)
+                             UpdateUsernameForm)
 from .models import User, Review, load_user
 from .utils import current_time
 
 """ ************ View functions ************ """
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
     form = SearchForm()
 
     if form.validate_on_submit():
         return redirect(url_for('query_results', query=form.search_query.data))
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form = form)
 
 @app.route('/search-results/<query>', methods=['GET'])
 def query_results(query):
@@ -41,7 +42,7 @@ def query_results(query):
 
 @app.route('/movies/<movie_id>', methods=['GET', 'POST'])
 def movie_detail(movie_id):
-    result = client.retrieve_movie_by_id(movie_id)
+    result = client.retrieve_player_by_id(movie_id)
 
     if type(result) == dict:
         return render_template('movie_detail.html', error_msg=result['Error'])

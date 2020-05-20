@@ -68,6 +68,3 @@ class UpdateUsernameForm(FlaskForm):
         user = User.objects(username=username.data).first()
         if user is not None:
             raise ValidationError('Username is taken')
-
-class UpdateProfilePicForm(FlaskForm):
-    pass
