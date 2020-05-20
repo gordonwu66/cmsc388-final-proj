@@ -17,10 +17,11 @@ class User(db.Document, UserMixin):
 
 # Repurpose for fantasy football player reviews (not movies)
 class Review(db.Document):
-    commenter = db.ReferenceField(User)
-    content = db.StringField(min_length=1, max_length=500, required=True)
+
+	commenter = db.ReferenceField(User)
+	content = db.StringField(min_length=1, max_length=500, required=True)
     draftRound = db.IntegerField(required=True)
     playAgain = db.StringField(required=True, min_length=2, max_length=3)
     date = db.StringField(required = True)
-    player_name = db.StringField(required = True)
-    player_id = db.StringField(min_length=7, max_length=7, regex=r'/^[A-Z]{2}-\d{4}$/', required=True)
+	player_name = db.StringField(required = True)
+	player_id = db.StringField(min_length=7, max_length=7, regex=r'/^[A-Z]{2}-\d{4}$/', required=True)

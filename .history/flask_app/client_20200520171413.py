@@ -46,6 +46,16 @@ class PlayerClient(object):
         
         for item_json in all_players_json:
             result.append(PlayerBase(item_json))
+        
+        search_url = f'/players?status=active&start=1001'
+        resp = self.sess.get(self.base_url + search_url)
+        if resp.status_code != 200:
+            return ValueError('Unable to obtain remaining players, make sure url is correct')
+        data = resp.json()
+        all_players_json = data['data']
+
+        for item_json in all_players_json:
+            result.append(PlayerBase(item_json))
 
         return result
 

@@ -23,9 +23,8 @@ class SearchForm(FlaskForm):
 
 class PlayerReviewForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired(), Length(min=1, max=500)])
-    draftRound = IntegerField('Draft Round',validators=[InputRequired(),NumberRange(min=1, max=15, message='Draft Round')])
-    playAgain = SelectField('Play Again',choices=[('YES','Yes'),('NO','No')])
-    submit = SubmitField('Submit Review')
+    draftRound = IntegerField('Draft Round',validators=[InputRequired(),NumberRange(min=1, max=15, message='Draft Round'])
+    submit = SubmitField('Enter Comment')
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=1, max=40)])
