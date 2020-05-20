@@ -1,5 +1,15 @@
 # 3rd-party packages
 from flask import render_template, request, redirect, url_for, flash, Response
+
+from flask import session
+import pyotp
+import qrcode
+import qrcode.image.svg
+from io import BytesIO
+import base64
+
+from flask_sqlalchemy import SQLAlchemy
+
 from flask_mongoengine import MongoEngine
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_bcrypt import Bcrypt
@@ -87,10 +97,48 @@ def register():
         user = User(username = form.username.data, email = form.email.data, password = hashed)
 
         user.save()
-        return redirect(url_for('login'))
+
+        session['new_username'] = user.username
+
+        return redirect(url_for('tfa'))
 
     return render_template('register.html', title='Register', form=form)
 
+
+@app.route('/qr_code')
+def qr_code():
+    if 'new_username' not in session:
+        return redirect(url_for('index'))
+
+    #user = User.query.filter_by(username=session['new_username']).first()
+    user = User.objects(username = session['new_username']).first()
+    session.pop('new_username')
+
+    uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name=user.username, issuer_name='Fantasy-Football')
+    img = qrcode.make(uri, image_factory= qrcode.image.svg.SvgPathImage)
+    stream = BytesIO()
+    img.save(stream)
+
+    headers = {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    }
+
+    return stream.getvalue(), headers
+
+@app.route('/tfa')
+def tfa():
+    if 'new_username' not in session:
+        return redirect(url_for('index'))
+
+    headers = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    }
+    return render_template('tfa.html'), headers
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -101,10 +149,14 @@ def login():
 
         if (user is not None and
             bcrypt.check_password_hash(user.password, form.password.data)):
+            print('HERE!')
             login_user(user)
 
             return redirect(url_for('account'))
-
+        else:
+            print('WTF!')
+    else:
+        print("EVEN MORE WTF")
     return render_template('login.html', title = 'Login', form=form)
 
 @app.route('/logout')
