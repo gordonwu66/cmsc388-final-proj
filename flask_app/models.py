@@ -23,7 +23,7 @@ class User(db.Document, UserMixin):
 class Review(db.Document):
     commenter = db.ReferenceField(User)
     content = db.StringField(min_length=1, max_length=500, required=True)
-    draftRound = db.IntegerField(required=True)
+    draftRound = db.IntField(required=True)
     playAgain = db.StringField(required=True, min_length=2, max_length=3)
     date = db.StringField(required = True)
     player_name = db.StringField(required = True)
