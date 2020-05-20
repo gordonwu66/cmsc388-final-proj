@@ -42,7 +42,7 @@ def query_results(query):
 
 @app.route('/movies/<movie_id>', methods=['GET', 'POST'])
 def movie_detail(movie_id):
-    result = client.retrieve_player_by_id(movie_id)
+    result = client.retrieve_movie_by_id(movie_id)
 
     if type(result) == dict:
         return render_template('movie_detail.html', error_msg=result['Error'])
