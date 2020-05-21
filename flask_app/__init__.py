@@ -18,7 +18,13 @@ app = Flask(__name__)
 # Flask-Talisman
 # Ensure all traffic is loaded with HTTPS (secure connection) by using 'self'
 csp = {
-    'default-src': '\'self\''
+    'default-src': [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'stackpath.bootstrapcdn.com',
+        'code.jquery.com',
+        'cdn.jsdelivr.net'
+    ]
 }
 Talisman(app, content_security_policy=csp)
 
