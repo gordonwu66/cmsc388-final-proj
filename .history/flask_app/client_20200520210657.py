@@ -206,3 +206,5 @@ if __name__=='__main__':
     for player in players:
         print(player.player_id)
     print(len(players))
+
+    
