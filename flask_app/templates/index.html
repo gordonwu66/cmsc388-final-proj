@@ -1,6 +1,6 @@
 {% extends "header.html" %}
-{% block content %}
 
+{% block content %}
 <div class="row">
     <div class="col">
         <form method="POST" action="">
@@ -18,4 +18,7 @@
         <h2>Welcome! </h2>
     </div>
 </div>
+
+<img src="{{ url_for('static', filename='NFL Poster.png', width = 600, height = 300)}}" />
+
 {% endblock %}
