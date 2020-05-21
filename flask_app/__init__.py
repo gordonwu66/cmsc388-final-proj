@@ -1,5 +1,6 @@
 # 3rd-party packages
 from flask import Flask, render_template, request, redirect, url_for
+from flask_talisman import Talisman
 from flask_mongoengine import MongoEngine
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_bcrypt import Bcrypt
@@ -13,6 +14,13 @@ from datetime import datetime
 from .client import PlayerClient
 
 app = Flask(__name__)
+
+# Flask-Talisman
+csp = {
+    'default-src': '\'self\''
+}
+Talisman(app, content_security_policy=csp)
+
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/second_database"
 app.config['MONGODB_HOST'] = 'mongodb://localhost:27017/project_4'
 app.config['SECRET_KEY'] = b'\x020;yr\x91\x11\xbe"\x9d\xc1\x14\x91\xadf\xec'
