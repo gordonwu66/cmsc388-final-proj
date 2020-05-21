@@ -10,7 +10,7 @@ import pyotp
 from .models import User
 
 class SearchForm(FlaskForm):
-    search_query = SelectField('Query', choices=[('ARI','Arizona Cardinals'), ('ATL','Atlanta Falcons'),
+    search_query = SelectField('Team', choices=[('ARI','Arizona Cardinals'), ('ATL','Atlanta Falcons'),
         ('BAL','Baltimore Ravens'),('BUF','Buffalo Bills'),('CAR','Carolina Panthers'), ('CHI','Chicago Bears'),
         ('CIN','Cincinnati Bengals'),('CLE','Cleveland Browns'),('DAL','Dallas Cowboys'),('DEN','Denver Broncos'),
         ('DET','Detroit Lions'),('GB','Green Bay Packers'),('HOU','Houston Texans'),('IND','Indianapolis Colts'),
