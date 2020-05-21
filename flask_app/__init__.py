@@ -16,6 +16,7 @@ from .client import PlayerClient
 app = Flask(__name__)
 
 # Flask-Talisman
+# Ensure all traffic is loaded with HTTPS (secure connection) by using 'self'
 csp = {
     'default-src': '\'self\''
 }
