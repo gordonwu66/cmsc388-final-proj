@@ -7,11 +7,11 @@ img {
     max-width: 200;
 }
 
-.center {
+/* .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
-} 
+} */
 
 .media-list {
     border-top: 1px dashed rgb(150, 150, 150);

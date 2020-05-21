@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <form method="POST" action="">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.search_query.label }}
+                {{ form.search_query(class="form-control") }}
+
+            </div>
+            {{ form.submit() }}
+        </form>
+    </div>
+
+    <div class="col">
+        <h2>Welcome! </h2>
+    </div>
+</div>
+
+<!-- <img src="{{ url_for('static', filename='NFL Poster.png', width = 600, height = 300)}}" /> -->
+
+{% endblock %}
