@@ -17,7 +17,7 @@ img {
 
 table {
     border-collapse: collapse;
-    width: max-content;
+    width: 100%
 }
 
 table, th, td {
@@ -27,7 +27,7 @@ table, th, td {
 td {
     text-align: center;
     vertical-align: middle;
-    height: fit-content;
+    height: max-content;
 }
 
 th {

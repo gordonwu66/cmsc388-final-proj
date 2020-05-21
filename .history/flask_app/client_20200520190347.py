@@ -3,7 +3,7 @@ import requests
 # Where the new python library/API should be implemented for use 
 
 class PlayerBase(object):
-    def __init__(self, player_json, offense=[], defense=[], kicker=[], flags=[]):
+    def __init__(self, player_json, offense, defense, kicker):
         self.player_id = player_json['player']
         self.fname = player_json['fname']
         self.lname = player_json['lname']
@@ -25,7 +25,6 @@ class PlayerBase(object):
         self.offense = offense
         self.defense = defense
         self.kicker = kicker
-        self.flags = flags
 
     def __repr__(self):
         return self.fullname
@@ -162,15 +161,10 @@ class PlayerClient(object):
         data = resp.json()
         basic = data['data']
 
-        flag = []
-        offense = []
-        defense = []
-        kicker = []
-
         offense_url = player_url + f'/offense'
         resp = self.sess.get(offense_url)
         if resp.status_code == 200:
-            flag.append(1)
+            offense = []
             games_json = resp.json()['data']
             for game_json in games_json:
                 offense.append(OffenseGame(game_json))
@@ -178,20 +172,20 @@ class PlayerClient(object):
         defense_url = player_url + f'/defense'
         resp = self.sess.get(defense_url)
         if resp.status_code == 200:
-            flag.append(2)
+            defense = []
             games_json = resp.json()['data']
             for game_json in games_json:
                 defense.append(DefenseGame(game_json))
         
         kicker_url = player_url + f'/kickers'
         resp = self.sess.get(kicker_url)
-        if resp.status_code == 200:            
-            flag.append(3)
+        if resp.status_code == 200:
+            kicker = []
             games_json = resp.json()['data']
             for game_json in games_json:
                 kicker.append(KickerGame(game_json))
         
-        player = PlayerBase(basic, offense=offense, defense=defense, kicker=kicker, flags=flag)
+        player = PlayerBase(basic, offense, defense, kicker)
         return player
 
     # def retrieve_movie_by_id(self, imdb_id):

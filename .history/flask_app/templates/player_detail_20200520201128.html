@@ -12,7 +12,7 @@
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ player.fullname }} ({{ player.cteam }} #{{player.jnum}})
+        {{ player.fullname }} ({{ player.cteam }} # {{player.jnum}})
       </div>
       <div class="card-body">
         <img src="{{ player.poster_url }}" class="mr-3" alt="alt text">
@@ -25,8 +25,7 @@
         </ul>
         {% for i in player.flags %}
           {% if i == 1 %}
-            <div style="overflow-x:auto">
-            <table>
+            <table style="width:100%">
               <tr>
                 <th>Season</th>
                 <th>Week Number</th>
@@ -55,42 +54,40 @@
                 <th>Fan Duel Fantasy Points</th>
                 <th>Draft Kings Fantasy Points</th>
               </tr>
-              {% for game in player.offense %}
+              {% for game in player.offense %}<tr>
               <tr>  
-                <td>{{ game.seas }}</td>
-                <td>{{ game.game }}</td>
-                <td>{{ game.team }}</td>
-                <td>{{ game.gid }}</td>
-                <td>{{ game.pa }}</td>
-                <td>{{ game.pc }}</td>
-                <td>{{ game.py }}</td>
-                <td>{{ game.ints }}</td>
-                <td>{{ game.tdp }}</td>
-                <td>{{ game.ra }}</td>
-                <td>{{ game.sra }}</td>
-                <td>{{ game.ry }}</td>
-                <td>{{ game.tdr }}</td>
-                <td>{{ game.trg }}</td>
-                <td>{{ game.rec }}</td>
-                <td>{{ game.recy }}</td>
-                <td>{{ game.tdrec }}</td>
-                <td>{{ game.ret }}</td>
-                <td>{{ game.rety }}</td>
-                <td>{{ game.tdret }}</td>
-                <td>{{ game.fuml }}</td>
-                <td>{{ game.peny }}</td>
-                <td>{{ game.snp }}</td>
-                <td>{{ game.fp }}</td>
-                <td>{{ game.fp2 }}</td>
-                <td>{{ game.fp3 }}</td>
+                <th>{{ game.seas }}</th>
+                <th>{{ game.game }}</th>
+                <th>{{ game.team }}</th>
+                <th>{{ game.gid }}</th>
+                <th>{{ game.pa }}</th>
+                <th>{{ game.pc }}</th>
+                <th>{{ game.py }}</th>
+                <th>{{ game.ints }}</th>
+                <th>{{ game.tdp }}</th>
+                <th>{{ game.ra }}</th>
+                <th>{{ game.sra }}</th>
+                <th>{{ game.ry }}</th>
+                <th>{{ game.tdr }}</th>
+                <th>{{ game.trg }}</th>
+                <th>{{ game.rec }}</th>
+                <th>{{ game.recy }}</th>
+                <th>{{ game.tdrec }}</th>
+                <th>{{ game.ret }}</th>
+                <th>{{ game.rety }}</th>
+                <th>{{ game.tdret }}</th>
+                <th>{{ game.fuml }}</th>
+                <th>{{ game.peny }}</th>
+                <th>{{ game.snp }}</th>
+                <th>{{ game.fp }}</th>
+                <th>{{ game.fp2 }}</th>
+                <th>{{ game.fp3 }}</th>
               </tr>
               {% endfor %}
             </table>
-            </div>
           {% endif %}
           {% if i == 2 %}
-            <div style="overflow-x:auto">
-            <table>
+            <table style="width:100%">
               <tr>
                 <th>Season</th>
                 <th>Week Number</th>
@@ -98,7 +95,7 @@
                 <th>Game ID</th>
                 <th>Solo Tackles</th>
                 <th>Combined Tackles</th>
-                <th>Sacks</th>
+                <th>Sacks/th>
                 <th>Safeties</th>
                 <th>Blocked Kicks</th>
                 <th>Interceptions</th>
@@ -115,34 +112,32 @@
               </tr>
               {% for game in player.defense %}<tr>
               <tr>  
-                <td>{{ game.seas }}</td>
-                <td>{{ game.game }}</td>
-                <td>{{ game.team }}</td>
-                <td>{{ game.gid }}</td>
-                <td>{{ game.solo }}</td>
-                <td>{{ game.comb }}</td>
-                <td>{{ game.sck }}</td>
-                <td>{{ game.saf }}</td>
-                <td>{{ game.blk }}</td>
-                <td>{{ game.ints }}</td>
-                <td>{{ game.pdef }}</td>
-                <td>{{ game.frcv }}</td>
-                <td>{{ game.forc }}</td>
-                <td>{{ game.tdd }}</td>
-                <td>{{ game.rety }}</td>
-                <td>{{ game.tdret }}</td>
-                <td>{{ game.peny }}</td>
-                <td>{{ game.snp }}</td>
-                <td>{{ game.fp }}</td>
-                <td>{{ game.fp2 }}</td>
+                <th>{{ game.seas }}</th>
+                <th>{{ game.game }}</th>
+                <th>{{ game.team }}</th>
+                <th>{{ game.gid }}</th>
+                <th>{{ game.solo }}</th>
+                <th>{{ game.comb }}</th>
+                <th>{{ game.sck }}</th>
+                <th>{{ game.saf }}</th>
+                <th>{{ game.blk }}</th>
+                <th>{{ game.ints }}</th>
+                <th>{{ game.pdef }}</th>
+                <th>{{ game.frcv }}</th>
+                <th>{{ game.forc }}</th>
+                <th>{{ game.tdd }}</th>
+                <th>{{ game.rety }}</th>
+                <th>{{ game.tdret }}</th>
+                <th>{{ game.peny }}</th>
+                <th>{{ game.snp }}</th>
+                <th>{{ game.fp }}</th>
+                <th>{{ game.fp2 }}</th>
               </tr>
               {% endfor %}
             </table>
-            </div>
           {% endif %}
           {% if i == 3 %}
-            <div style="overflow-x:auto">
-            <table>
+            <table style="width:100%">
               <tr>
                 <th>Season</th>
                 <th>Week Number</th>
@@ -156,19 +151,18 @@
               </tr>
               {% for game in player.offense %}<tr>
               <tr>  
-                <td>{{ game.seas }}</td>
-                <td>{{ game.game }}</td>
-                <td>{{ game.team }}</td>
-                <td>{{ game.gid }}</td>
-                <td>{{ game.pat }}</td>
-                <td>{{ game.fgs }}</td>
-                <td>{{ game.fgm }}</td>
-                <td>{{ game.fgl }}</td>
-                <td>{{ game.fp }}</td>
+                <th>{{ game.seas }}</th>
+                <th>{{ game.game }}</th>
+                <th>{{ game.team }}</th>
+                <th>{{ game.gid }}</th>
+                <th>{{ game.pat }}</th>
+                <th>{{ game.fgs }}</th>
+                <th>{{ game.fgm }}</th>
+                <th>{{ game.fgl }}</th>
+                <th>{{ game.fp }}</th>
               </tr>
               {% endfor %}
             </table>
-            </div>
           {% endif %}
         {% endfor %}
       </div>

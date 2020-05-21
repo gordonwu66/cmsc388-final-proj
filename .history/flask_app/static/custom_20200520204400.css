@@ -17,7 +17,7 @@ img {
 
 table {
     border-collapse: collapse;
-    width: max-content;
+    width: fit-content;
 }
 
 table, th, td {

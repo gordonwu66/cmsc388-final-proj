@@ -17,27 +17,18 @@ img {
 
 table {
     border-collapse: collapse;
-    width: max-content;
+    width: 100%
 }
 
 table, th, td {
-    border: 1px solid black;
-}
-
-td {
-    text-align: center;
-    vertical-align: middle;
-    height: fit-content;
+    border: 1px solid black
 }
 
 th {
     text-align: center;
-    vertical-align: middle;
     color: black;
     height: auto;
 }
-
-tr:hover {background-color: #a5a5a5;}
 
 /* .nav-user {
     border-right: 1px #1d1d1d;

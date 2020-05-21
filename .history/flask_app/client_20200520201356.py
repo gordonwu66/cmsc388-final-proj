@@ -163,13 +163,10 @@ class PlayerClient(object):
         basic = data['data']
 
         flag = []
-        offense = []
-        defense = []
-        kicker = []
-
         offense_url = player_url + f'/offense'
         resp = self.sess.get(offense_url)
         if resp.status_code == 200:
+            offense = []
             flag.append(1)
             games_json = resp.json()['data']
             for game_json in games_json:
@@ -178,6 +175,7 @@ class PlayerClient(object):
         defense_url = player_url + f'/defense'
         resp = self.sess.get(defense_url)
         if resp.status_code == 200:
+            defense = []
             flag.append(2)
             games_json = resp.json()['data']
             for game_json in games_json:
@@ -185,13 +183,14 @@ class PlayerClient(object):
         
         kicker_url = player_url + f'/kickers'
         resp = self.sess.get(kicker_url)
-        if resp.status_code == 200:            
+        if resp.status_code == 200:
+            kicker = []
             flag.append(3)
             games_json = resp.json()['data']
             for game_json in games_json:
                 kicker.append(KickerGame(game_json))
         
-        player = PlayerBase(basic, offense=offense, defense=defense, kicker=kicker, flags=flag)
+        player = PlayerBase(basic, offense, defense, kicker, flag)
         return player
 
     # def retrieve_movie_by_id(self, imdb_id):

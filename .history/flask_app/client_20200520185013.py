@@ -3,33 +3,34 @@ import requests
 # Where the new python library/API should be implemented for use 
 
 class PlayerBase(object):
-    def __init__(self, player_json, offense=[], defense=[], kicker=[], flags=[]):
-        self.player_id = player_json['player']
-        self.fname = player_json['fname']
-        self.lname = player_json['lname']
-        self.pname = player_json['pname']
-        self.fullname = self.fname + " " + self.lname
-        self.pos1 = player_json['pos1']
-        self.pos2 = player_json['pos2']
-        self.height = player_json['height']
-        self.weight = player_json['weight']
-        self.dob = player_json['dob']
-        self.dpos = player_json['dpos']
-        self.col = player_json['col']
-        self.dv = player_json['dv']
-        self.start = player_json['start']
-        self.cteam = player_json['cteam']
-        self.posd = player_json['posd']
-        self.jnum = player_json['jnum']
-        self.dcp = player_json['dcp']
-        self.offense = offense
-        self.defense = defense
-        self.kicker = kicker
-        self.flags = flags
+    def __init__(self, player_json, flag, offense, defense, kicker):
+        for i in flag:
+            if i == 0:
+                self.player_id = player_json['player']
+                self.fname = player_json['fname']
+                self.lname = player_json['lname']
+                self.pname = player_json['pname']
+                self.fullname = self.fname + " " + self.lname
+                self.pos1 = player_json['pos1']
+                self.pos2 = player_json['pos2']
+                self.height = player_json['height']
+                self.weight = player_json['weight']
+                self.dob = player_json['dob']
+                self.dpos = player_json['dpos']
+                self.col = player_json['col']
+                self.dv = player_json['dv']
+                self.start = player_json['start']
+                self.cteam = player_json['cteam']
+                self.posd = player_json['posd']
+                self.jnum = player_json['jnum']
+                self.dcp = player_json['dcp']
+                self.flags =['Base']
+            if i == 1:
+                self.flags.append('Offense')
+                self.
 
     def __repr__(self):
         return self.fullname
-
 class OffenseGame(object):
     def __init__(self, game_json):
         self.player_id = game_json['player']
@@ -62,52 +63,10 @@ class OffenseGame(object):
         self.team = game_json['team']
     
     def __repr__(self):
-        return self.gid
+        return self.fullname
 
-class DefenseGame(object):
-    def __init__(self, game_json):
-        self.player_id = game_json['player']
-        self.gid = game_json['gid']
-        self.solo = game_json['solo']
-        self.comb = game_json['comb']
-        self.sck = game_json['sck']
-        self.saf = game_json['saf']
-        self.blk = game_json['blk']
-        self.ints = game_json['ints']
-        self.pdef = game_json['pdef']
-        self.frcv = game_json['frcv']
-        self.forc = game_json['forc']
-        self.tdd = game_json['tdd']
-        self.rety = game_json['rety']
-        self.tdret = game_json['tdret']
-        self.peny = game_json['peny']
-        self.snp = game_json['snp']
-        self.fp = game_json['fp']
-        self.fp2 = game_json['fp2']
-        self.game = game_json['game']
-        self.seas = game_json['seas']
-        self.year = game_json['year']
-        self.team = game_json['team']
-    
     def __repr__(self):
-        return self.gid
-
-class KickerGame(object):
-    def __init__(self, game_json):
-        self.player_id = game_json['player']
-        self.gid = game_json['gid']
-        self.pat = game_json['pat']
-        self.fgs = game_json['fgs']
-        self.fgm = game_json['fgm']
-        self.fgl = game_json['fgl']
-        self.fp = game_json['fp']
-        self.game = game_json['game']
-        self.seas = game_json['seas']
-        self.year = game_json['year']
-        self.team = game_json['team']
-    
-    def __repr__(self):
-        return self.gid
+        return self.fullname
 
 class PlayerClient(object):
     def __init__(self):
@@ -122,7 +81,7 @@ class PlayerClient(object):
             return ValueError('Unable to obtain all players, make sure url is correct')
 
         data = resp.json()
-        
+
         all_players_json = data['data']
 
         result = []
@@ -161,16 +120,15 @@ class PlayerClient(object):
             raise ValueError('Search request failed, make sure proper Player_Id given')
         data = resp.json()
         basic = data['data']
-
-        flag = []
-        offense = []
-        defense = []
-        kicker = []
+        
+        flag = [0]
 
         offense_url = player_url + f'/offense'
         resp = self.sess.get(offense_url)
         if resp.status_code == 200:
             flag.append(1)
+            offense = []
+            
             games_json = resp.json()['data']
             for game_json in games_json:
                 offense.append(OffenseGame(game_json))
@@ -179,19 +137,15 @@ class PlayerClient(object):
         resp = self.sess.get(defense_url)
         if resp.status_code == 200:
             flag.append(2)
-            games_json = resp.json()['data']
-            for game_json in games_json:
-                defense.append(DefenseGame(game_json))
+        defense = resp.json()
         
         kicker_url = player_url + f'/kickers'
         resp = self.sess.get(kicker_url)
-        if resp.status_code == 200:            
+        if resp.status_code == 200:
             flag.append(3)
-            games_json = resp.json()['data']
-            for game_json in games_json:
-                kicker.append(KickerGame(game_json))
+        kicker = resp.json()
         
-        player = PlayerBase(basic, offense=offense, defense=defense, kicker=kicker, flags=flag)
+        player = PlayerBase(basic, flag, offense, defense, kicker)
         return player
 
     # def retrieve_movie_by_id(self, imdb_id):
