@@ -1,6 +1,6 @@
 # 3rd-party packages
 from flask import render_template, request, redirect, url_for, flash, Response
-
+from flask import Blueprint
 from flask import session
 import pyotp
 import qrcode
@@ -24,6 +24,12 @@ from .forms import (SearchForm, PlayerReviewForm, RegistrationForm, LoginForm,
                              UpdateUsernameForm)
 from .models import User, Review, load_user
 from .utils import current_time
+
+# Blueprints
+users = Blueprint('users', __name__)
+auth = Blueprint('auth', __name__)
+main = Blueprint('main', __name__)
+
 
 """ ************ View functions ************ """
 @app.route('/', methods=['GET', 'POST'])
@@ -102,12 +108,12 @@ def register():
 
         session['new_username'] = user.username
 
-        return redirect(url_for('tfa'))
+        return redirect(url_for('users.tfa'))
 
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/qr_code')
+@users.route('/qr_code')
 def qr_code():
     if 'new_username' not in session:
         return redirect(url_for('index'))
@@ -130,7 +136,7 @@ def qr_code():
 
     return stream.getvalue(), headers
 
-@app.route('/tfa')
+@users.route('/tfa')
 def tfa():
     if 'new_username' not in session:
         return redirect(url_for('index'))
@@ -140,7 +146,7 @@ def tfa():
         'Pragma': 'no-cache',
         'Expires': '0'
     }
-    return render_template('tfa.html'), headers
+    return render_template('users.tfa.html'), headers
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -151,14 +157,11 @@ def login():
 
         if (user is not None and
             bcrypt.check_password_hash(user.password, form.password.data)):
-            print('HERE!')
             login_user(user)
 
             return redirect(url_for('account'))
-        else:
-            print('WTF!')
-    else:
-        print("EVEN MORE WTF")
+
+
     return render_template('login.html', title = 'Login', form=form)
 
 @app.route('/logout')
