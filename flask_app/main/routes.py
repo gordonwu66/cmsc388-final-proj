@@ -22,6 +22,10 @@ def index():
 def about():
     return render_template("about.html", title="About")
 
+@main.route("/howitworks")
+def how_it_works():
+    return render_template("how_it_works.html", title="How It Works")
+
 @main.route('/user/<username>')
 def user_detail(username):
     # Create list of reviews done by the specified user
