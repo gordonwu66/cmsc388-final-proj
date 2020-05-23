@@ -25,8 +25,8 @@
 					<span class="float-right">
 					  <small>{{ review.date }}</small>
 					</span>
-					<a href="{{ url_for('main.user_detail', username=review.commenter.username) }}">
-					  <strong>@{{ review.commenter.username }}</strong>
+					<a href="{{ url_for('football.player_detail', player_id=review.player_id) }}">
+					  <strong>@{{ review.player_name</strong>
 					</a>
 					  <br> {{ review.content }}
 					  <br> <b>Draft Round</b> {{review.draftRound}}
