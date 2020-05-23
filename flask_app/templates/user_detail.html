@@ -25,7 +25,7 @@
 					<span class="float-right">
 					  <small>{{ review.date }}</small>
 					</span>
-					<a href="{{ url_for('football.player_detail', player_id=review.player_id) }}">
+					<a href="{{ url_for('football.player_detail'), player_id=review.player_id) }}">
 					  <strong>@{{ review.player_name</strong>
 					</a>
 					  <br> {{ review.content }}
