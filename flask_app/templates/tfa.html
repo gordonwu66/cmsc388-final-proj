@@ -11,10 +11,10 @@
 		Use an authenticator app to enroll with us! You will need to use this app to login in the future.
         You can download Authy as your authenticator app <a href = 'https://apps.apple.com/us/app/authy/id494168017'> here</a>.
 	</p>
-	<img src='{{ url_for('users.qr_code') }}' alt="QR Code for 2FA">
+	<img src="{{ url_for('users.qr_code') }}" alt="QR Code for 2FA">
 
 	<div>
-		When you're done, you can go to the <a href= {{ url_for('login') }}> login page</a>!
+		When you're done, you can go to the <a href= "{{ url_for('users.login') }}"> login page</a>!
 	</div>
 
 {% endblock %}

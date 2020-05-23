@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col">
         {# Indicate which user's reviews we're looking at #}
-        {{ username }}
+        {{ username }}'s Profile
     </div>
 </div>
 <div class="row">
@@ -16,25 +16,27 @@
         {# Show all reviews made by the user #}
 
 		<div class="row">
-		  <div class="col-md-12">
-		    <h1> Reviews <small class="float-right">{{ reviews.count() }} reviews</small></h1>
-		    <ul class="media-list">
-		      {% for review in reviews %}
-		      <li class="media review-item">
-		        <div class="media-body">
-		          <span class="float-right">
-		            <small>{{ review.date }}</small>
-		          </span>
-		          <strong>{{ review.movie_title }}</strong>
-		          <p>
-		            {{ review.content }}
-		          </p>
-		        </div>
-		      </li>
-		      {% endfor %}
-		    </ul>
+			<div class="col-md-12">
+			  <h1> Reviews <small class="float-right">{{ reviews.count() }} reviews</small></h1>
+			  <ul class="media-list">
+				{% for review in reviews %}
+				<li class="media review-item">
+				  <div class="media-body">
+					<span class="float-right">
+					  <small>{{ review.date }}</small>
+					</span>
+					<a href="{{ url_for('main.user_detail', username=review.commenter.username) }}">
+					  <strong>@{{ review.commenter.username }}</strong>
+					</a>
+					  <br> {{ review.content }}
+					  <br> <b>Draft Round</b> {{review.draftRound}}
+					  <br> <b>Play again?</b> {{review.playAgain}}
+				  </div>
+				</li>
+				{% endfor %}
+			  </ul>
+			</div>
 		  </div>
-		</div>
 
     </div>
 </div>

@@ -44,9 +44,9 @@
 </div>
 <div class="row">
     <div class="col">
-        {# Link to see all of the current user's reviews. #}
-        <a href="{{ url_for('user_detail', username=current_user.username)}}">
-            <strong>@{{ current_user.username }}</strong>
+        Click the link to see all of your reviews!
+        <a href="{{ url_for('main.user_detail', username=current_user.username)}}">
+            <p><strong>@{{ current_user.username }}</strong></p>
         </a>
     </div>
 </div>

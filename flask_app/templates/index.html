@@ -19,6 +19,19 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col">
+        <form method="POST" action="">
+            {{ form2.csrf_token }}
+            <div class="form-group">
+                {{ form2.fname.label }} {{ form2.fname(class="form-control") }}
+                {{ form2.lname.label }} {{ form2.lname(class="form-control") }}
+            </div>
+            {{ form2.submit() }}
+        </form>
+    </div>
+</div>
+
 <img src="{{ url_for('static', filename='NFL Poster.png', width = 600, height = 300)}}" />
 
 {% endblock %}

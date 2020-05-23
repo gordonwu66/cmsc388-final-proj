@@ -16,34 +16,26 @@
 </div>
 <div class="row">
     <div class="col">
-        {# Add link to redirect users to Registration page if they don't have an account #}
+        If you <b>don't</b> have an account, then <a href="{{ url_for('users.register') }}">Register!</a>
     </div>
 </div>
 <div class="row">
     <div class="col">
-        {# Optionally show flashed messages if/when you need them,
-            if an authentication or other similar error occurs #}
-        {# Login form rendered here with Bootstrap classes #}
-        <div class="row">
-          <div class="col">
-            <form method="POST" action="">
-              {{ form.csrf_token }}
-              <div class="form-group">
-                {{ form.username.label }}
-                {{ form.username(class="form-control") }}
+    <form method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
 
-                {{ form.password.label }}
-                {{ form.password(class="form-control") }}
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
 
-                {{ form.token.label }}
-                {{ form.token(class="form-control") }}
+        {{ form.token.label }}
+        {{ form.token(class="form-control") }}
 
-              </div>
-              {{ form.submit() }}
-            </form>
-          </div>
         </div>
-
+        {{ form.submit() }}
+    </form>
     </div>
 </div>
 {% endblock %}

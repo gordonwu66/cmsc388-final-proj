@@ -4,12 +4,12 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
 from wtforms import StringField, IntegerField, SubmitField, TextAreaField, PasswordField, SelectField
 from wtforms.validators import (InputRequired, DataRequired, NumberRange, Length, Email, 
-                                EqualTo, ValidationError)
+                                EqualTo, ValidationError, Optional)
 import pyotp
 
 from .models import User
 
-class SearchForm(FlaskForm):
+class SearchTeamForm(FlaskForm):
     search_query = SelectField('Team', choices=[('ARI','Arizona Cardinals'), ('ATL','Atlanta Falcons'),
         ('BAL','Baltimore Ravens'),('BUF','Buffalo Bills'),('CAR','Carolina Panthers'), ('CHI','Chicago Bears'),
         ('CIN','Cincinnati Bengals'),('CLE','Cleveland Browns'),('DAL','Dallas Cowboys'),('DEN','Denver Broncos'),
@@ -20,10 +20,15 @@ class SearchForm(FlaskForm):
         ('PIT','Pittsburgh Steelers'),('SEA','Seattle Seahawks'),('SF','San Francisco 49ers'),('TB','Tampa Bay Buccaneers'),
         ('TEN','Tennessee Titans'),('WAS','Washington Redskins'),('ALL','All Teams')])
     submit = SubmitField('Search')
+    
+class SearchPlayerForm(FlaskForm):
+    fname = StringField('Player First Name', validators=[Optional()])
+    lname = StringField('Player Last Name', validators=[Optional()])
+    submit = SubmitField('Search')
 
 class PlayerReviewForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired(), Length(min=1, max=500)])
-    draftRound = IntegerField('Draft Round',validators=[InputRequired(),NumberRange(min=1, max=15, message='Draft Round')])
+    draftRound = IntegerField('Draft Round',validators=[InputRequired(),NumberRange(min=1, max=15, message='Draft Round must be between 1 and 15')])
     playAgain = SelectField('Play Again',choices=[('YES','Yes'),('NO','No')])
     submit = SubmitField('Submit Review')
 

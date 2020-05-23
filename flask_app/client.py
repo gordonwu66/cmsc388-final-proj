@@ -194,6 +194,17 @@ class PlayerClient(object):
         player = PlayerBase(basic, offense=offense, defense=defense, kicker=kicker, flags=flag)
         return player
 
+    def retrieve_player_by_name(self, player_fname, player_lname):
+        player_url = self.base_url + f'/player/{player_fname}_{player_lname}'
+        print(player_fname + player_lname)
+        resp = self.sess.get(player_url)
+        
+        if resp.status_code != 200:
+            #raise ValueError('Search request failed, make sure proper Player Name given')
+            return resp.json()
+        data = resp.json()
+        basic = data['data'][0]
+        return basic['player']
 
 ## -- Example usage -- ###
 if __name__=='__main__':
